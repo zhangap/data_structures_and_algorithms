@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>桶排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /**
+     * 思路：
+     * 1、确定数组要分成几个组(桶的数量)。桶的数量 = （最大值 - 最小值）/ 数组长度 + 1。
+     * 2、把每个元素放在对应的桶里面。元素位置 =（ 元素大小 - 最小值）/ 数组长度
+     * 3、对每个桶进行排序
+     * 4、对所有的桶进行整合
+     */
+
+    /**
+     * 桶排序
+     * @param arr
+     */
+    function bucketSort(arr) {
+        const max = Math.max(...arr);
+        const min = Math.min(...arr);
+        // 计算桶的数量
+        const bucketNum = Math.floor((max - min) / arr.length) + 1;
+
+        //根据桶的数量来初始化桶的个数
+        const bucketArr = new Array(bucketNum);
+        for (let i = 0; i < bucketNum; i++) {
+            bucketArr[i] = []
+        }
+        //根据计算公式，把每个数据放在对应的桶中
+        for (let i = 0; i < arr.length ; i++) {
+            let num = Math.floor((arr[i] - min) / arr.length);
+            bucketArr[num].push(arr[i]);
+        }
+        // 对每个桶里面的数据进行排序
+        for (const i of bucketArr) {
+            i.sort()
+        }
+
+        // 双重循环，按顺序取出每个桶里面的数据
+        let k = 0;
+        for (let i = 0; i < bucketArr.length; i++) {
+            for (let j = 0; j < bucketArr[i].length; j++) {
+                arr[k++] = bucketArr[i][j];
+
+            }
+        }
+    }
+    let arr = [1,20,31,58,46,5,6,7,21,32,44,59];
+    bucketSort(arr);
+    console.log(arr);
+</script>

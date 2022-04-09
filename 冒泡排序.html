@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>冒泡排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /**
+     *冒泡排序
+     * @param arr
+     */
+
+    function bubbleSort(arr) {
+        // debugger
+        let forCount = 0;
+        if(!(Array.isArray(arr) && arr.length))return;
+
+        const len = arr.length;
+
+        for (let i = 0; i < len; i++) {
+            // 提前退出循环的标记，如果整体循环一次，都没有顺序交换，说明此时数组顺序已经是正序，无需要再进行循环排序
+            let breakFlag =  false;
+            for(let j = 0 ; j < len-i - 1 ; j++) {
+
+                if(arr[j] > arr[j+1]) {
+                    const temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                    breakFlag = true;
+                    // console.log(Date.now())
+                }
+                forCount++;
+            }
+            if(!breakFlag) break;
+        }
+        console.log(`for count = ${forCount}`)
+        return arr;
+    }
+    const arr1 = [4,5,6,3,2,1];
+    const arr2 = [3,5,4,1,2,6]
+    console.log(bubbleSort(arr1))
+    console.log(bubbleSort(arr2))
+
+</script>

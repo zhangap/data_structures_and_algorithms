@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /**
+     * 快排序
+     * @param array
+     * @param start
+     * @param end
+     * @returns {*}
+     *思路：
+     * 1、通过下标取中间数作为基数
+     * 2、从起点往后找比基数大的，记录下标为i，再从终点往前找比基数小的，记录下标为j； 当i<=j时，原地交换数值
+     * 3、重复步骤2，直到遍历所有元素，并记录遍历最后一个下标i，以此下标为界线，分为左右两边，分别重复步骤1-3实现递归排序。
+     */
+    function quickSort(array, start, end) {
+        if(array.length <=1) return array;
+        const index = device(array,start,end);
+
+        if(start < index-1) {
+            quickSort(array,start,index-1);
+        }
+        if(end > index) {
+            quickSort(array,index,end);
+        }
+        return array;
+    }
+
+    function device(array, start, end) {
+        if(start >= end) return array;
+        const baseIndex = Math.floor((start + end) / 2);
+        let i = start;
+        let j = end;
+        while (i <= j) {
+            while (array[i] < array[baseIndex]) {
+                i++;
+            }
+            while (array[j] > array[baseIndex]) {
+                j--;
+            }
+
+            if(i <=j) {
+                let temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                temp = null;
+                i++;
+                j--;
+            }
+        }
+        return i;
+    }
+
+    const arr = [3,1,2,5,4,7,9,6,8,0];
+    console.log('原始数组',arr);
+    debugger;
+    console.log(quickSort(arr,0, arr.length-1))
+
+</script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>归并排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    const arr = [3,4,6,11,9,5,8,7,2,1,10];
+
+    /**
+     * 归并排序
+     * @param arr
+     */
+    function mergeSort(arr) {
+        const len = arr.length;
+        if(len <= 1) return arr;
+        const middle = Math.floor(len/2);
+        const leftArr = arr.slice(0, middle)
+        const rightArr = arr.slice(middle);
+        return merge(mergeSort(leftArr), mergeSort(rightArr));
+    }
+
+    /**
+     * 合并两个数组
+     * @param left
+     * @param right
+     */
+    function merge(left, right) {
+        const result = [];
+        while (left.length && right.length) {
+            if(left[0] <= right[0]) {
+                result.push(left.shift());
+            } else {
+                result.push(right.shift());
+            }
+        }
+        while (left.length) {
+            result.push(left.shift());
+        }
+        while (right.length) {
+            result.push(right.shift());
+        }
+        return result;
+    }
+
+    debugger;
+    console.log(mergeSort(arr))
+</script>

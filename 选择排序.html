@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function selectionSort(arr) {
+        if(!arr.length || !Array.isArray(arr)) return;
+        let len = arr.length;
+        for (let i = 0; i < len; i++) {
+            // 存储最小数值的下标索引
+            let minIndex  = i;
+            for (let j = i; j < len; j++) {
+                if(arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            const temp = arr[minIndex]
+            arr[minIndex] = arr[i]
+            arr[i] = temp;
+
+        }
+        return arr;
+    }
+
+    debugger;
+    const arr = [4,5,6,3,2,1];
+    console.log(selectionSort(arr))
+</script>
