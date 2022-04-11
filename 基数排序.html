@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基数排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    /**
+     *基数排序
+     * @param arr 待排序数组
+     * @param maxDigit 最大位
+     *
+     * 思路：
+     * 1、取得数组中的最大数，并取得位数
+     * 2、arr为原始数组，从最低位开始取每个位组程raidxs数组。
+     * 3、对radix进行计数排序（利用计数排序适用于小范围数的特点）
+     */
+    function radixSort(arr, maxDigit) {
+        let mod = 10;
+        let dev = 1;
+        const counter = [];
+        for (let i = 0; i < maxDigit ; i++,dev *= 10, mod *= 10) {
+            for (let j = 0; j < arr.length; j++) {
+                let bucket = parseInt((arr[j] % mod) / dev);
+                if(counter[bucket]  == null) {
+                    counter[bucket]= []
+                }
+                counter[bucket].push(arr[j])
+            }
+            let pos = 0;
+            for (let j = 0; j < counter.length; j++) {
+                let value = null;
+                if(counter[j] != null) {
+                    while ((value = counter[j].shift()) != null) {
+                        arr[pos++] = value;
+                    }
+                }
+            }
+        }
+        return arr;
+    }
+    // 对电话号码进行排序
+    const phones = [13377890049,15927679275,13445273490,15509803450,15927453498];
+    debugger;
+    console.log(radixSort(phones, (Math.max(...phones) + '').length))
+</script>

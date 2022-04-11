@@ -8,3 +8,52 @@
 
 </body>
 </html>
+<script>
+    /**
+     *
+     * @param arr
+     */
+    function  countingSort(arr) {
+        const len  = arr.length;
+        if(len <=1) return arr;
+
+        //找出最大值
+        const max = Math.max(...arr);
+        // 初始化一个长度为max+1的桶，桶内初始值为0
+       const newArr =  Array.from({
+           length: max + 1
+       }, () => {
+            return 0;
+        });
+       // 每个值对应桶的下标，桶内的每个数据，是记录下标的值在原始数组中的个数。
+        for (let i = 0; i < len; i++) {
+            newArr[arr[i]] +=1;
+        }
+        // 依次累加，记录比自己小的个数，包含自己
+        for (let i = 1; i <= max ; i++) {
+            newArr[i] = newArr[i-1] + newArr[i];
+        }
+        console.log('newArr=',newArr)
+        // 临时数组
+        const tempArr = new Array(len);
+        for (let i = len -1; i >=0; i--) {
+            // 取出数组原始值
+            const item = arr[i];
+            // 根据原始值作为key，从桶内取出比自己小的个数，在个数上减去一，就是自己的排名
+            let index = newArr[item] -1;
+            // 以名次作为下标，记录原始数据的值
+            tempArr[index] = item;
+            //把相同原始数据的名次减去一
+            newArr[item]--;
+        }
+        // 将结果数组进行拷贝
+        for (let i = 0; i < len; i++) {
+            arr[i] = tempArr[i];
+        }
+        return arr;
+    }
+
+    const arr = [2,6,3,0,2,3,0,3,4,9,7];
+    debugger;
+    console.log(countingSort(arr))
+</script>
