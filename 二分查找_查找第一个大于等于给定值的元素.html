@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二分查找_查找第一个大于等于给定值的元素</title>
+</head>
+<body>
+
+</body>
+</html>
+ <script>
+   const arr = [3,4,6,7,10,13,15,16];
+
+   /**
+    * 查找元素
+    * @param arr 被查找的数组
+    * @param value 被查找的元素
+    */
+   function search(arr, value) {
+       let low = 0 ;
+       let high = arr.length - 1;
+
+       while (low <= high) {
+           let mid = low + Math.floor((high - low)/2);
+           let midValue = arr[mid];
+           if(midValue >= value) {
+               if(mid === 0 ||  arr[mid -1] < value) return mid;
+               else high = mid - 1;
+           } else {
+               low = mid +1;
+           }
+       }
+       return -1;
+   }
+   console.log(search(arr, 5))
+ </script>
