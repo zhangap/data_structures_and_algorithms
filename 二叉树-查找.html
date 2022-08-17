@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二叉树</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /**
+     * tree节点
+     */
+    class Node {
+        constructor(value) {
+            this.data = value;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    // 构造一个二叉树
+    const p = new Node(33);
+    const n1 = new Node(17);
+    const n2 = new Node(50);
+    const n3 = new Node(13);
+    const n4 = new Node(18);
+    const n5 = new Node(34);
+    const n6 = new Node(58);
+    const n7 = new Node(16);
+    const n8 = new Node(25);
+    const n9 = new Node(51);
+    const n10 = new Node(66);
+    const n11 = new Node(19);
+    const n12 = new Node(27);
+
+
+    p.left = n1;
+    p.right = n2;
+
+    n1.left = n3;
+    n1.right = n4;
+
+    n2.left = n5;
+    n2.right = n6;
+
+    n3.right = n7;
+    n4.right  = n8;
+
+    n6.left = n9;
+    n6.right = n10;
+
+    n8.left = n11;
+    n8.right = n12;
+
+
+    /**
+     * 二叉树查找
+     * @param tree  二叉树根节点
+     * @param value
+     * @constructor
+     */
+    function find(tree, value) {
+        while (tree !== null) {
+            if(value < tree.data) tree = tree.left;
+            else if(value > tree.data) tree = tree.right;
+            else return tree;
+        }
+    }
+
+    console.log(find(p, 25))
+
+
+    /**
+     * 二叉树插入
+     * @param tree
+     * @param value
+     */
+    function insert(tree, value) {
+        if(tree === null) {
+            tree = new Node(value)
+            return;
+        }
+        while (tree !== null) {
+            if(value > tree.data) {
+                if(tree.right === null) {
+                    tree.right = new Node(value);
+                    return;
+                }
+                tree = tree.right;
+            } else { // value < tree.data
+                if(p.left === null) {
+                    p.left = new Node(value);
+                    return;
+                }
+                tree = tree.left;
+            }
+        }
+    }
+    // 插入33
+    insert(p, 42);
+    console.log(p);
+
+    /**
+     * 二叉树的删除操作
+     * @param tree
+     * @param value
+     * 思路：
+     * 1、如果要删除的节点没有子节点，直接将父节点中指向该节点的指针设置为null。
+     * 2、如果要删除的节点只有一个子节点（左子节点或者是右子节点),我们只需要更新父节点中，指向要删除节点的指针,让他指向要删除节点的子节点就好了。
+     * 3、
+     */
+    function deleteNode(tree, value) {
+        let pp = null; // pp是tree节点的parent节点
+        while (tree !== null && tree.data !== value) {
+            pp = tree;
+            if(value > tree.data) tree = tree.right;
+            else tree = tree.left;
+        }
+        // 没有找到
+        if(tree === null) return ;
+
+        // 要删除的节点包含两个子节点
+        // 我们需要找到这个节点的右子树中的最小节点，把它替换到要删除的节点上。然后再删除掉这个最小节点，
+        // 因为最小节点肯定没有左子节点（如果有左子结点，那就不是最小节点了）
+        if(tree.left && tree.right) {
+            let minP = tree.right;
+            let minPP = tree;
+            while (minP.left !== null) {
+                minP = minP.left;
+                minPP = minP;
+            }
+            // 将minP的数据替换到p中
+            tree.data = minP.data;
+            // 删除minP
+            tree = minP;
+            pp = minPP;
+        }
+        // 删除节点是叶子节点或者仅有一个子节点
+        let child = null;
+        if(tree.left !== null) {
+            child = tree.left;
+        } else if(tree.right !== null){
+            child = tree.right;
+        } else {
+            child = null;
+        }
+
+        if(pp === null) {
+            tree = child; //删除的是根节点
+        } else if(pp.left === tree ) {
+            pp.left = child;
+        } else {
+            pp.right = child;
+        }
+    }
+
+
+</script>
