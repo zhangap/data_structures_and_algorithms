@@ -4,12 +4,9 @@
  * 有效： [] {} () ([{}])
  */
 const symbolStartArr = ['(', '[', '{']
-const symbolEndArr = [')', ']', '}']
 function isValid(str) {
     const stack = []
     str = trim(str)
-    // 如果去除空格以后，字符串为奇数，说明不是合格的字符串
-    if(str.length % 2 !== 0) return false
     for (let i = 0, len = str.length; i < len; i++) {
         const w = str[i]
         // 把起始括号压入栈中
@@ -22,20 +19,18 @@ function isValid(str) {
                 (w === ')' && top === '(') ||
                 (w === ']' && top === '[') ||
                 (w === '}' && top === '{' )
-
             ){
                 stack.pop()
             }
         }
-
     }
     return stack.length === 0
 }
-
+// 去除所有的空格
 function trim(str) {
-    return str.replace(/^\s+|\s+$/gm,'');
+    return str.replace(/\s+/g,'');
 }
 
 console.log('测试----------')
-console.log(isValid('[()]'))
+console.log(isValid('  [( )  adcddd]'))
 console.log(isValid('(()'))
