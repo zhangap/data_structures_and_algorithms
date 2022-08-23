@@ -45,7 +45,7 @@ function cardGroup(arr) {
  * @returns {boolean}
  */
 function cardGroup2(arr) {
-    // debugger
+    debugger
     let map = {}
     arr.forEach(value => {
         let tempArr = map[value]
