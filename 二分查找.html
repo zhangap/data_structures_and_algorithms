@@ -24,7 +24,7 @@
       // let midIndex =  Number.parseInt((max + min)/2)
       // 推荐使用第二种写法，如果max和min是一个很大的值的话,max+min很有可能会溢出
       let midIndex = min + Number.parseInt((max - min)/2)
-      let middleValue = midIndex;
+      let middleValue = arr[midIndex];
       if(middleValue < num) {
         min = midIndex + 1
       } else if(middleValue > num) {
@@ -41,9 +41,10 @@
   const arr = Array.from({
     length: 900
   }, () => {
-    return  count++;
+    return  count +=2;
   })
-  const num = 431;
+  const num = 422;
+  console.log(arr)
 
   console.log(findNum(arr,num));
 
